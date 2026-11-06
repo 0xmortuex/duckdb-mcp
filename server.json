@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.0xmortuex/duckdb-mcp",
+  "description": "Query local CSV, TSV, Parquet and JSON files with SQL (DuckDB), read-only and confined to the folders you allow.",
+  "repository": {
+    "url": "https://github.com/0xmortuex/duckdb-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "duckdb-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}
