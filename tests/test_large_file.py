@@ -82,8 +82,11 @@ mi = psutil.Process().memory_info()
 peak = getattr(mi, "peak_wset", None)
 if peak is None:
     import resource
+    import sys
 
-    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+    # ru_maxrss is bytes on macOS but kilobytes on Linux.
+    unit = 1 if sys.platform == "darwin" else 1024
+    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * unit
 print(peak // (1024 * 1024))
 """
 
