@@ -125,7 +125,7 @@ What is enforced, and by what:
 |--------|---------|
 | Reading files outside the allowed folders (`C:/Windows/...`, `/etc/passwd`, `../..`, UNC paths, a sibling folder with the same name prefix) | DuckDB `allowed_directories` + `enable_external_access=false`. DuckDB resolves `..` and junctions/symlinks, so those are refused too. |
 | Network access (`read_csv('https://...')`, `INSTALL httpfs`) | `enable_external_access=false`; extension auto-install and auto-load are off. |
-| Undoing the above from SQL | `lock_configuration=true`, and `SET` statements are rejected anyway. |
+| Undoing the above from SQL | The statement gate rejects `SET`. Independently, DuckDB refuses to re-enable external access or change `allowed_directories` once access is off, and `lock_configuration=true` freezes every other setting. |
 | Writing files (`COPY ... TO`, `EXPORT DATABASE`, `EXPLAIN ANALYZE COPY ...`) | DuckDB still allows writes inside allowed folders, so the statement gate only accepts one SELECT-type statement, and an `EXPLAIN` must wrap a SELECT. |
 | Changing or creating objects (`CREATE`, `INSERT`, `ATTACH`, `PRAGMA`) | Same gate. |
 | A runaway query | Interrupted after `--timeout` seconds. |
